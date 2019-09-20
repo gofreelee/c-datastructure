@@ -27,7 +27,8 @@ class BinaryTree{
 };
 template<typename typeVal>
 void BinaryTree<typeVal>::clear(){
-    root->clear_node();
+    if(root==0)delete root;
+    else root->clear_node();
 }
 template<typename typeVal>
 BinaryTree<typeVal>::~BinaryTree(){
@@ -35,8 +36,13 @@ BinaryTree<typeVal>::~BinaryTree(){
 }
 template<typename typeVal>
 BinaryTree<typeVal>::BinaryTree(const BinaryTree<typeVal>& src){
-     root=new BTnode<typeVal>();
-     root->copy(src.root);
+    if(src.root==0){
+        root=nullptr;
+    }
+    else{
+        root=new BTnode<typeVal>();
+        root->copy(src.root);
+    }
 }
 template <typename typeval>
 inline BinaryTree<typeval>::BinaryTree(){
