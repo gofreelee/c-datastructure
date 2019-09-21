@@ -1,4 +1,6 @@
 
+#ifndef _HEAP_H
+#define _HEAP_H
 #include<stdlib.h>
 #include<iostream>
 using std::cout;
@@ -161,3 +163,4 @@ value heap<value>::get_index(int index)const{
       return _array[index];
    }
 }
+#endif
