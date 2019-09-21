@@ -3,70 +3,70 @@
 #include "BTnode.h"
 #include<iostream>
 using std::cout;
-template <typename typeval>
+template <typename type_val>
 class BinaryTree{
-    public:
+public:
     BinaryTree();
     BinaryTree(const BinaryTree& );
     BinaryTree& operator=(const BinaryTree&);
     ~BinaryTree();//要释放内存
     bool empty(){return root==0;}
-    void insert(const typeval& elem);
-    void delete_node(const typeval& elem);
-    void delete_node(const BTnode<typeval>& node);
+    void insert(const type_val& elem);
+    void delete_node(const type_val& elem);
+    void delete_node(const BTnode<type_val>& node);
     void delete_root();
     //前序遍历
     void preorder();
-    BTnode<typeval>& find_elem(const typeval& elem);
-    static BTnode<typeval>& find_left_leaf( BTnode<typeval>* node);
-    private:
-     BTnode<typeval>* root;
-     void copy(const BTnode<typeval>* tar,const BTnode<typeval>* src);
-     void clear();
+    BTnode<type_val>& find_elem(const type_val& elem);
+    static BTnode<type_val>& find_left_leaf( BTnode<type_val>* node);
+private:
+    BTnode<type_val>* root;
+    void copy(const BTnode<type_val>* tar,const BTnode<type_val>* src);
+    void clear();
 
 };
-template<typename typeVal>
-void BinaryTree<typeVal>::clear(){
-    if(root==0)delete root;
+template<typename type_val>
+void BinaryTree<type_val>::clear(){
+    if(root==0){}
     else root->clear_node();
 }
-template<typename typeVal>
-BinaryTree<typeVal>::~BinaryTree(){
+template<typename type_val>
+BinaryTree<type_val>::~BinaryTree(){
     clear();
 }
-template<typename typeVal>
-BinaryTree<typeVal>::BinaryTree(const BinaryTree<typeVal>& src){
+template<typename type_val>
+BinaryTree<type_val>::BinaryTree(const BinaryTree<type_val>& src){
     if(src.root==0){
         root=nullptr;
     }
     else{
-        root=new BTnode<typeVal>();
+        root=new BTnode<type_val>();
         root->copy(src.root);
     }
 }
-template <typename typeval>
-inline BinaryTree<typeval>::BinaryTree(){
+template <typename type_val>
+inline BinaryTree<type_val>::BinaryTree(){
     root=nullptr;
 }
-template<typename typeval>
-inline BinaryTree<typeval>& BinaryTree<typeval>::operator=(const BinaryTree& src){
+template<typename type_val>
+inline BinaryTree<type_val>& BinaryTree<type_val>::operator=(const BinaryTree& src){
     if(&src!=this){
     clear();
     copy(root,src);
     }
     return *this;
 }
-template <typename typeVal>
-inline void BinaryTree<typeVal>::insert(const typeVal& elem){
+template <typename type_val>
+inline void BinaryTree<type_val>::insert(const type_val& elem){
     if(root==nullptr){
-        root=new BTnode<typeVal>(elem);
+        root=new BTnode<type_val>(elem);
     }
     else{
-        root->insertVal(elem);
+        root->insert_val(elem);
     }
 }
-template <typename typeVal>
-void BinaryTree<typeVal>::delete_node(const typeVal& elem){
+template <typename type_val>
+void BinaryTree<type_val>::delete_node(const type_val& elem){
     if(this->root==0){
         cout<<"empty binarytree";
         return;
@@ -75,11 +75,11 @@ void BinaryTree<typeVal>::delete_node(const typeVal& elem){
         delete_root();
     }
     else {
-        root->deleteVal(elem,root);
+        root->delete_val(elem,root);
     }
 }
-template <typename typeVal>
-void BinaryTree<typeVal>::delete_node(const BTnode<typeVal>& elem){
+template <typename type_val>
+void BinaryTree<type_val>::delete_node(const BTnode<type_val>& elem){
     if (&elem==this->root)
     {
         delete_root();
@@ -90,29 +90,29 @@ void BinaryTree<typeVal>::delete_node(const BTnode<typeVal>& elem){
         elem=elem->right;
     }
 }
-template <typename typeVal>
-BTnode<typeVal>& BinaryTree<typeVal>::find_elem(const typeVal& elem){
-         BTnode<typeVal>& tmp=*this->root;
-         if(tmp==nullptr)
-         return nullptr;
-         else if(tmp._val==elem)return tmp;
-         else if(tmp._val<elem){
-             tmp=*tmp.right;
-             
-         }
+template <typename type_val>
+BTnode<type_val>& BinaryTree<type_val>::find_elem(const type_val& elem){
+    BTnode<type_val>& tmp=*this->root;
+    if(tmp==nullptr)
+    return nullptr;
+    else if(tmp._val==elem)return tmp;
+    else if(tmp._val<elem){
+        tmp=*tmp.right;
+        
+    }
 }
-template <typename typeVal>
-void BinaryTree<typeVal>::preorder(){
-    BTnode<typeVal>::preorder(root);
+template <typename type_val>
+void BinaryTree<type_val>::preorder(){
+    BTnode<type_val>::preorder(root);
 }
-template <typename typeVal>
-void BinaryTree<typeVal>::delete_root(){
+template <typename type_val>
+void BinaryTree<type_val>::delete_root(){
     if(root==0)return;
     if(root->left==0&&root->right==0){
         delete root;
         return;
     }
-    BTnode<typeVal>* tmp=root;
+    BTnode<type_val>* tmp=root;
     if(root->left==0){
         root=root->right;
         delete tmp;
@@ -122,7 +122,7 @@ void BinaryTree<typeVal>::delete_root(){
         delete tmp;
     }
     else {
-        BTnode<typeVal>* route_node=root->right;
+        BTnode<type_val>* route_node=root->right;
         while(route_node->left!=nullptr){
             route_node=route_node->left;
         }
