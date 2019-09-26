@@ -15,15 +15,21 @@ public:
     void put(const key& key_name,const value& value_name);
     void delete_key(const key& key_name);
     value get(const key& key_name);
-    bool contain(const key& key_name);
+    bool contain(const key& key_name)const;
     int size()const{
         return this->_size;
     };
 private:
      node<key,value>* root=0;
      int _size;
-
 };
+
+template<typename key,typename value>
+symbol_table<key,value>::symbol_table(const symbol_table<key,value>& ref){
+    node<key,value>::copy(ref.root,root);
+    _size=ref._size;   
+}
+
 template<typename key,typename value>
 void symbol_table<key,value>::put (const key& key_name,const value& value_name) {
         if(root==nullptr){
@@ -31,7 +37,7 @@ void symbol_table<key,value>::put (const key& key_name,const value& value_name) 
             _size++;
         }
         else {
-            root->insert(key_name,value_name,_size);
+            _size=root->insert(key_name,value_name,_size);
         }
 }
 template <typename key,typename value>
@@ -57,6 +63,8 @@ symbol_table<key,value>::~symbol_table(){
     root->clear();
 }
 
-
-
+template <typename key,typename value>
+bool symbol_table<key,value>::contain(const key& key_name)const{
+       return root->find(key_name);
+}
 #endif
