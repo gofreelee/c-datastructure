@@ -17,7 +17,7 @@ struct remove_reference <T&&>  {
 };
 
 template <typename T>
-inline typename remove_reference<T>::type && move(T&& value){
+inline typename remove_reference<T>::type&& mmove(T&& value)noexcept{
     return static_cast<typename remove_reference<T>::type&&> (value);
 }
 
